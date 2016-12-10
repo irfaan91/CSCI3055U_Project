@@ -1,6 +1,8 @@
 package sample;
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -8,21 +10,28 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 
-public class Main extends Application {
+
+public class Main{
 
     Stage window;
-    private BorderPane layout;
+    public BorderPane layout;
+    public  GridPane grid;
+    public Button send = new Button("Send");
 
-    @Override
-    public void start(Stage primaryStage) throws Exception{
+
+    Main(Stage primaryStage){
+
+
+
         window = primaryStage;
         window.setTitle("Free Rooms App");
         window.setMinHeight(300);
         window.setMinWidth(650);
         window.setMaxWidth(750);
         window.setMaxHeight(400);
-        GridPane grid = new GridPane(); //change grid to searchArea
+        grid = new GridPane(); //change grid to searchArea
         grid.setPadding(new Insets(5, 5, 5, 5));
         grid.setVgap(5);
         grid.setHgap(5);
@@ -38,50 +47,78 @@ public class Main extends Application {
         //first field
         Label dayLabel = new Label("Day:");
         GridPane.setConstraints(dayLabel, 0, 0);
-        grid.getChildren().add(dayLabel);
+
 
         final TextField day = new TextField();
         day.setPromptText("Day");
         //day.getText(); //gets day from field
         GridPane.setConstraints(day, 1, 0);
-        grid.getChildren().add(day);
+
 
         //second field
         Label startLabel = new Label("Start Time:");
         GridPane.setConstraints(startLabel, 2, 0);
-        grid.getChildren().add(startLabel);
+
 
         final TextField startTime = new TextField();
         startTime.setPromptText("Start Time");
         startTime.getText(); //gets input from field
         GridPane.setConstraints(startTime, 3, 0);
-        grid.getChildren().add(startTime);
+
 
 
         //third field
         Label endLabel = new Label("End time:");
         GridPane.setConstraints(endLabel, 4, 0);
-        grid.getChildren().add(endLabel);
+
 
         final TextField endTime = new TextField();
         endTime.setPromptText("End Time");
         //endTime.getText(); //gets input from field
         GridPane.setConstraints(endTime, 5, 0);
-        grid.getChildren().add(endTime);
+
 
         //output
         TextArea output = new TextArea();
-        output.setText("EXAMPLE OUTPUT!!"); //put output from file
+
+
+        //Search Button
+
+        send.setMnemonicParsing(true);
+        send.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                try{
+                    if(startTime.getText() != ""){
+                        output.appendText(startTime.getText());
+
+                    }
+
+                    if(endTime.getText() != ""){
+                        output.appendText((endTime.getText()));
+
+                    }
+
+
+
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        //Adding elements to grid
+        grid.getChildren().add(dayLabel);
+        grid.getChildren().add(day);
+        grid.getChildren().add(startLabel);
+        grid.getChildren().add(startTime);
+        grid.getChildren().add(endLabel);
+        grid.getChildren().add(endTime);
+        grid.add(send, 5,5,5,5);
         grid.add(output, 1, 1, 5, 1);
 
-        layout = new BorderPane();
-        //criteria fields
-        layout.setTop(grid);
-        //setting layout to display
-        Scene scene = new Scene(layout, 650, 300);
-        window.setScene(scene);
-        window.show();
+
     }
 
-    public static void main(String[] args) {launch(args);}
+
 }
