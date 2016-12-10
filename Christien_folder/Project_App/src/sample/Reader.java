@@ -11,7 +11,7 @@ import java.io.*;
 public class Reader extends Application{
 
     //Interfaces
-    Main page;
+    searchStage page;
     public static String line;
 
 
@@ -19,7 +19,7 @@ public class Reader extends Application{
     @Override
     public void start(Stage primaryStage) throws Exception{
 
-        page = new Main(primaryStage);
+        page = new searchStage(primaryStage);
         page.layout = new BorderPane();
         page.layout.setCenter(page.grid);
         page.layout.setStyle("-fx-background-color: #f2f2f2");

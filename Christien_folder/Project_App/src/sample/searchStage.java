@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 
-public class Main{
+public class searchStage{
 
     Stage window;
     public BorderPane layout;
@@ -21,7 +21,7 @@ public class Main{
     public Button send = new Button("Send");
 
 
-    Main(Stage primaryStage){
+    searchStage(Stage primaryStage){
 
 
 
