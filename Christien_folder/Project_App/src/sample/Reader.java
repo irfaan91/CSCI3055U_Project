@@ -16,6 +16,12 @@ public class Reader extends Application{
 
 
 
+    public String getClasses(File file){
+
+        return "";
+    }
+
+
     @Override
     public void start(Stage primaryStage) throws Exception{
 
@@ -25,7 +31,7 @@ public class Reader extends Application{
         page.layout.setStyle("-fx-background-color: #f2f2f2");
 
 
-        Scene scene = new Scene (page.layout, 650, 300);
+        Scene scene = new Scene (page.layout, 650, 450);
 
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
@@ -39,22 +45,7 @@ public class Reader extends Application{
         File file = new File ("schedule.txt");
         System.out.println("Starting");
 
-        try{
-            BufferedReader br = new BufferedReader(new FileReader(file));
-            System.out.println("Reading text File");
-            int counter = 1;
-            line = br.readLine();
 
-            while(line != null){
-                System.out.println(line);
-                line = br.readLine();
-                System.out.println(counter);
-                counter += 1;
-
-            }
-        }catch(Exception e){
-            System.out.println("File not found");
-        }
 
         System.out.println("Creating Stage");
         launch(args);

@@ -21,3 +21,10 @@ Commit Log:
 		To due:
 		-Going to search for time slots in next commit and will hopefully print to the textfield.
 		-Also have to touch up the asthetics
+
+	DEC/11/2016
+		-got the classes to display and fixed the interface a little as well
+		
+		To due:
+		-Just need to make sure that all classes are being selected for the proper intervals listed
+		-Going to touch up the interface a little as well
