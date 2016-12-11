@@ -20,8 +20,8 @@ public class Main extends Application {
         window.setTitle("Free Rooms App");
         window.setMinHeight(300);
         window.setMinWidth(650);
-        window.setMaxWidth(650);
-        window.setMaxHeight(300);
+        window.setMaxWidth(750);
+        window.setMaxHeight(400);
         GridPane grid = new GridPane(); //change grid to searchArea
         grid.setPadding(new Insets(5, 5, 5, 5));
         grid.setVgap(5);
