@@ -28,7 +28,8 @@ public class Reader extends Application{
         page = new searchStage(primaryStage);
         page.layout = new BorderPane();
         page.layout.setCenter(page.grid);
-        page.layout.setStyle("-fx-background-color: #f2f2f2");
+        page.layout.setStyle("-fx-background-color: #7171E3");
+
 
 
         Scene scene = new Scene (page.layout, 650, 450);

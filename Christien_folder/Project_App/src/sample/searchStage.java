@@ -13,7 +13,9 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 public class searchStage{
@@ -36,48 +38,53 @@ public class searchStage{
 
 
 
-    public List getClasses(File file, int startTime, int endTime){
-
+    public Set<String> getClasses(File file, int startTime, int endTime, String day){
+        System.out.println(startTime);
+        System.out.println(endTime);
+        Set<String> holder = new HashSet<String>();
 
         try{
             BufferedReader br = new BufferedReader(new FileReader(file));
             System.out.println("Reading text File");
             line = br.readLine();
+
             String[] classes;
+
 
 
             while((line = br.readLine())!=null){
 
                 classes = line.split("\\|");
-                //System.out.println(line);
+                holder.add(classes[8]);
                 int class_Start = Concatinate(Integer.parseInt(classes[3]), Integer.parseInt(classes[5]));
+                //System.out.println(class_Start);
                 int class_End = Concatinate(Integer.parseInt(classes[6]), Integer.parseInt(classes[7]));
-
-                if (!(class_Start > startTime) || !(class_Start < endTime)) {
-                    if(!(class_End > startTime) || !(class_End < endTime)){
-                        available_list.add(line);
-
+                //System.out.println(class_End);
+                System.out.println("Reach 1");
+                if(classes[4] == day) {
+                    if(class_Start <= endTime && class_End >= startTime){
+                        System.out.println("Reach 1");
+                        if((class_Start <= startTime || class_Start >= startTime) && (class_End >= endTime || class_End <= endTime)){
+                            System.out.println("Reach 2");
+                            holder.remove(classes[8]);
+                        }
                     }
-
                 }
-
             }
         }catch(IOException e){
             System.out.println("File not found");
         }
-        System.out.println("made it");
-        return available_list;
+        //System.out.println("made it");
+        return holder;
     }
 
     public int Concatinate(int num1, int num2){
         int Time;
-
-        if(num1 >= 12){
-            if(num2 == 0){
-                Time = (Integer.parseInt(String.valueOf(num1) + "00"));
-                return Time;
-            }
+        if(num2 == 0){
+            Time = (Integer.parseInt(String.valueOf(num1) + "00"));
+            return Time;
         }
+
 
         Time = Integer.parseInt(String.valueOf(num1) + String.valueOf(num2));
         return Time;
@@ -145,6 +152,8 @@ public class searchStage{
 
         //output
         TextArea output = new TextArea();
+        output.setScrollTop(1);
+        output.setScrollLeft(1);
 
         //DropDown Menu
         for(int i = 0; i <= 24; i++){
@@ -190,15 +199,19 @@ public class searchStage{
             @Override
             public void handle(ActionEvent event) {
                 try{
-                    List tempList = new ArrayList<String>();
-                    output.setText("");
+                    output.clear();
+                    Set<String> tempSet = new HashSet<String>();
                     String s_Time = (startHour.getValue() + startMin.getValue());
                     String e_Time = endHour.getValue() + endMin.getValue();
+                    String selected_Day = dayDrop.getValue().substring(0,1);
 
-                    tempList = getClasses(file,Integer.parseInt(s_Time),Integer.parseInt(e_Time));
+                    tempSet = getClasses(file,Integer.parseInt(s_Time),Integer.parseInt(e_Time),selected_Day);
+                    String[] free_rooms = tempSet.toArray(new String[tempSet.size()]);
+                    output.appendText("-------------------------ROOMS AVAILABLE[" + String.valueOf(tempSet.size()) + "]-------------------------" + "\n");
 
-                    for(int i = 0; i < tempList.size(); i++){
-                        output.setText(String.valueOf(tempList.get(i)));
+                    for(int i = 0; i < free_rooms.length; i++){
+                        output.appendText("\n");
+                        output.appendText(String.valueOf(free_rooms[i]) + "\n");
                     }
 
                 }catch(Exception e){
@@ -217,7 +230,7 @@ public class searchStage{
         grid.add(endHour,2,3,1,1);
         grid.add(endMin,3,3,1,1);
         grid.add(search, 5,5,5,5);
-        grid.add(output, 1, 4, 5, 1);
+        grid.add(output, 1, 4, 6, 1);
 
 
     }
