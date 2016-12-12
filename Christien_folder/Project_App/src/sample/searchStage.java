@@ -60,8 +60,9 @@ public class searchStage{
                 //System.out.println(class_Start);
                 int class_End = Concatinate(Integer.parseInt(classes[6]), Integer.parseInt(classes[7]));
                 //System.out.println(class_End);
-                System.out.println("Reach 1");
+
                 if(classes[4] == day) {
+                    System.out.println("Reach 1");
                     if(class_Start <= endTime && class_End >= startTime){
                         System.out.println("Reach 1");
                         if((class_Start <= startTime || class_Start >= startTime) && (class_End >= endTime || class_End <= endTime)){
